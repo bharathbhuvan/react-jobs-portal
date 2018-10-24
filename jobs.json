@@ -1,0 +1,28 @@
+[
+  {
+    "id": "1",
+    "created_at": "Mon Oct 22 18:13:39 UTC 2018",
+    "title": "Data Engineer, Hedge Fund",
+    "location": "San Francisco, CA",
+    "type": "Full Time",
+    "description": "<p>ABOUT THE FIRM</p>\n\n<p>Resonate Capital is an SEC registe…",
+    "how_to_apply": "<p>Please send your resume to <a href=\"mailto:resume@resonatecap.…",
+    "company": "Resonate Capital, LLC",
+    "company_url": null,
+    "company_logo": null,
+    "url": "http://jobs.github.com/positions/126c5b80-d626-11e8-9e0e-830fc841cb6b"
+  },
+  {
+    "id": "2",
+    "created_at": "Mon Oct 22 15:26:48 UTC 2018",
+    "title": "Podcasts Server Engineer, Apple Media Products",
+    "location": "San Francisco, CA",
+    "type": "Full Time",
+    "description": "<p>DESCRIPTION: Changing the world is all in a day's work at Apple. If you…",
+    "how_to_apply": "<p>APPLY URL: <a href=\"https://ars2.equest.com/?response_id=59f70…",
+    "company": "Apple Inc.",
+    "company_url": "http://www.apple.com",
+    "company_logo": "http://github-jobs.s3.amazonaws.com/810f66da-d60e-11e8-930e-d37f60e00fff.jpeg",
+    "url": "http://jobs.github.com/positions/e46aaaf0-d60e-11e8-81c9-f8b1893678c9"
+  }
+]
