@@ -16,7 +16,7 @@ function handleFile(err, data) {
   // You can now play with your datas
 }
 
-app.get("/api/hello", (req, res) => {
+app.get("/api/search", (req, res) => {
   res.send(obj);
 });
 
