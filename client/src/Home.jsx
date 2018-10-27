@@ -49,13 +49,17 @@ const Home = props => {
       <Header>Header</Header>
       <Search onSearch={props.onSearch} />
       <Layout className="container">
-        <Row type="flex" justify="center" gutter={16}>
+        <Row type="flex" justify="center">
           {/* <Col span={5} className="gutter-row">
             {renderLeftSideBar(props)}
           </Col> */}
           {props.isFound ? (
             <Col
-              span={12}
+              xs={24}
+              sm={24}
+              md={18}
+              lg={12}
+              xl={12}
               className="gutter-row"
               style={{ backgroundColor: "#fff", minHeight: 380 }}
             >
