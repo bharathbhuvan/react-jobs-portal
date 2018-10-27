@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Home from "./Home";
 import searchApi from "./components/Api";
+import { message } from "antd";
 import "./App.css";
 
 class App extends Component {
@@ -8,7 +9,9 @@ class App extends Component {
     response: [],
     filterdresponse: [],
     current: 1,
-    paging: 10
+    paging: 10,
+    isFound: true,
+    isSearch: ""
   };
   DateSort = (a, b) => {
     return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
@@ -37,23 +40,47 @@ class App extends Component {
       });
       if (filterdresponse.length) {
         this.setState({
-          filterdresponse
+          filterdresponse,
+          isFound: true,
+          isSearch: val,
+          current: 1
+        });
+      } else {
+        this.setState({
+          isFound: false
         });
       }
+    } else {
+      message.info("Plese enter keywords");
+      this.setState({
+        isSearch: ""
+      });
     }
   };
   onSort = sortby => {
-    let filterdresponse = this.state.filterdresponse.length
-      ? this.state.filterdresponse
-      : this.state.response;
     if (sortby === "date") {
+      let filterdresponse = this.state.filterdresponse.length
+        ? this.state.filterdresponse
+        : [...this.state.response];
       filterdresponse = filterdresponse.filter(data => {
         const { created_at } = data;
         return created_at;
       }, filterdresponse.sort(this.DateSort));
       this.setState({
-        ...this.state.filterdresponse,
         filterdresponse
+      });
+    } else {
+      let searchSort = this.state.isSearch
+        ? this.state.filterdresponse
+        : [...this.state.response];
+      searchSort = searchSort.filter(data => {
+        return data;
+      }, searchSort.reverse());
+
+      this.setState({
+        filterdresponse: this.state.isSearch
+          ? searchSort
+          : [...this.state.response]
       });
     }
   };

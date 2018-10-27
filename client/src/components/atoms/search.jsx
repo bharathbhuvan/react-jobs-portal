@@ -3,16 +3,14 @@ import { Input, Row, Col } from "antd";
 
 const Search = props => {
   const handleSearch = val => {
-    if (val) {
-      props.onSearch(val);
-    }
+    props.onSearch(val);
   };
   const Search = Input.Search;
   return (
     <Row type="flex" justify="center" align="middle" className="Home_search">
-      <Col span={21}>
+      <Col span={18}>
         <Search
-          placeholder="input search text"
+          placeholder="Search by keywords (PHP,Devops,Cloud)"
           enterButton="Search"
           size="large"
           required={true}

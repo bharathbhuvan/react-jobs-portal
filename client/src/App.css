@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 .App {
     text-align: center;
 }
@@ -34,4 +34,41 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+.h3-large {
+    float: left;
+}
+
+.ant-layout-footer {
+    background-color: #001529;
+}
+
+.ant-input-search input,
+.ant-input-search button {
+    height: 60px;
+}
+
+.h3-large+.ant-tag {
+    margin-left: 20px;
+}
+
+.ant-tag+p {
+    clear: left;
+}
+
+.ant-tag-green {
+    color: #fff;
+    background: #52c41a;
+    border-color: #52c41a;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.ant-tag-gold {
+    color: #fff;
+    background: #faad14;
+    border-color: #faad14;
+    border-radius: 20px;
+    font-weight: bold;
 }
