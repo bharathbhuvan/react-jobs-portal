@@ -1,7 +1,9 @@
 import React from "react";
-import { Layout, Row, Col, Tag, Pagination } from "antd";
+import { Layout, Row, Col, Tag, Pagination, Button, Icon } from "antd";
 import Search from "./components/atoms/search";
 import Dropdown from "./components/atoms/dropdown";
+import EditableTagGroup from "./components/atoms/Tags";
+import CheckBox from "./components/atoms/checkbox";
 import htmlToReact from "html-to-react";
 import "./App.css";
 
@@ -50,9 +52,37 @@ const Home = props => {
       <Search onSearch={props.onSearch} />
       <Layout className="container">
         <Row type="flex" justify="center">
-          {/* <Col span={5} className="gutter-row">
-            {renderLeftSideBar(props)}
-          </Col> */}
+          <Col
+            xs={24}
+            sm={24}
+            md={18}
+            lg={5}
+            xl={5}
+            style={{ padding: 30 }}
+            className="gutter-row"
+          >
+            <span>
+              <strong>Skills</strong>
+            </span>
+            <span style={{ float: "right", paddingRight: 10 }}>Clear</span>
+            <hr />
+            <div>
+              <span>
+                <strong>Filter</strong>
+              </span>
+              <span style={{ float: "right", paddingRight: 10 }}>
+                Clear Filter
+              </span>
+              <EditableTagGroup />
+            </div>
+            <div style={{ margin: `30px 0` }}>
+              <span>
+                <strong>Availability</strong>
+              </span>
+              <span style={{ float: "right", paddingRight: 10 }}>Clear</span>
+              <CheckBox />
+            </div>
+          </Col>
           {props.isFound ? (
             <Col
               xs={24}
@@ -61,7 +91,11 @@ const Home = props => {
               lg={12}
               xl={12}
               className="gutter-row"
-              style={{ backgroundColor: "#fff", minHeight: 380 }}
+              style={{
+                backgroundColor: "#fff",
+                minHeight: 380,
+                marginBottom: `50px`
+              }}
             >
               <Row
                 type="flex"
@@ -111,6 +145,18 @@ const Home = props => {
                   {currentList.length - 1 !== index && <hr />}
                 </div>
               ))}
+              {props.isFound && (
+                <Pagination
+                  current={props.current}
+                  onChange={page => handlePage(page)}
+                  total={totalList}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    margin: 50
+                  }}
+                />
+              )}
             </Col>
           ) : (
             <Col
@@ -120,24 +166,25 @@ const Home = props => {
                 minHeight: 380,
                 display: "flex",
                 justifyContent: "center",
-                padding: `20px 50px`
+                padding: `20px 50px`,
+                marginBottom: `50px`
               }}
             >
               <h3>Match Not Found</h3>
             </Col>
           )}
-          {/* <Col span={5} className="gutter-row">
-            sidebar
-          </Col> */}
+
+          <Col xs={24} sm={24} md={18} lg={5} xl={5} className="gutter-row">
+            <div className="lefside-bar">
+              <Icon type="deployment-unit" theme="outlined" />
+              <h2>Track time</h2>
+              <p>Pay only for the hours worked</p>
+              <Button type="primary" justfy-content="center" size="default">
+                SignUp
+              </Button>
+            </div>
+          </Col>
         </Row>
-        {props.isFound && (
-          <Pagination
-            current={props.current}
-            onChange={page => handlePage(page)}
-            total={totalList}
-            style={{ display: "flex", justifyContent: "center", margin: 50 }}
-          />
-        )}
       </Layout>
 
       <Footer>Footer</Footer>

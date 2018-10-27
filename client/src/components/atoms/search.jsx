@@ -14,7 +14,7 @@ const Search = props => {
       className="Home_search"
       gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
     >
-      <Col span={18}>
+      <Col span={22}>
         <Search
           placeholder="Search by keywords (PHP,Devops,Cloud)"
           enterButton="Search"
