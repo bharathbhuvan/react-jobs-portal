@@ -149,7 +149,7 @@ const Home = props => {
               ))}
               {currentList.length > 0 && (
                 <Pagination
-                  current={props.current}
+                  current={props.currentPage}
                   onChange={page => handlePage(page)}
                   total={totalList}
                   style={{

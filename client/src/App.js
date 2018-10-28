@@ -24,7 +24,6 @@ class App extends Component {
       .catch(err => console.log(err));
   }
   onPageChange = page => {
-    console.log(page);
     this.setState({
       currentPage: page
     });
