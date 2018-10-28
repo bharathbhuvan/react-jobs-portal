@@ -1,29 +1,29 @@
 import React from "react";
 import { Layout, Row, Col, Tag, Pagination, Button, Icon } from "antd";
-import Search from "./components/atoms/search";
-import Dropdown from "./components/atoms/dropdown";
-import EditableTagGroup from "./components/atoms/Tags";
-import CheckBox from "./components/atoms/checkbox";
+import Search from "./atoms/search";
+import Nomatch from "./nomatch";
+import Dropdown from "./atoms/dropdown";
+import EditableTagGroup from "./atoms/Tags";
+import CheckBox from "./atoms/checkbox";
 import htmlToReact from "html-to-react";
-import "./App.css";
 
+const paging = 10;
 const Home = props => {
   const { Header, Footer } = Layout;
   const htmlToReactParser = new htmlToReact.Parser();
-  const { current, paging } = props;
+  const { currentPage } = props;
 
   const paginfInfo = {
-    indexOfLastTodo: current * paging,
-    jobList:
-      props.filterdresponse.length > 0 ? props.filterdresponse : props.response,
+    indexOfLastTodo: currentPage * paging,
+    jobList: props.jobFilter.length > 0 ? props.jobFilter : props.allJobs,
     get currentList() {
       const indexOfFirstTodo = this.indexOfLastTodo - paging;
       return this.jobList.slice(indexOfFirstTodo, this.indexOfLastTodo);
     },
     get totalList() {
-      return props.filterdresponse.length > 0
-        ? props.filterdresponse.length
-        : props.response.length;
+      return props.jobFilter.length > 0
+        ? props.jobFilter.length
+        : props.allJobs.length;
     },
     handlePage: function(page) {
       props.onPageChange(page);
@@ -83,7 +83,9 @@ const Home = props => {
               <CheckBox />
             </div>
           </Col>
-          {props.isFound ? (
+          {props.isSearch && props.jobFilter.length === 0 ? (
+            <Nomatch />
+          ) : (
             <Col
               xs={24}
               sm={24}
@@ -145,7 +147,7 @@ const Home = props => {
                   {currentList.length - 1 !== index && <hr />}
                 </div>
               ))}
-              {props.isFound && (
+              {currentList.length > 0 && (
                 <Pagination
                   current={props.current}
                   onChange={page => handlePage(page)}
@@ -158,22 +160,7 @@ const Home = props => {
                 />
               )}
             </Col>
-          ) : (
-            <Col
-              span={12}
-              style={{
-                backgroundColor: "#fff",
-                minHeight: 380,
-                display: "flex",
-                justifyContent: "center",
-                padding: `20px 50px`,
-                marginBottom: `50px`
-              }}
-            >
-              <h3>Match Not Found</h3>
-            </Col>
           )}
-
           <Col xs={24} sm={24} md={18} lg={5} xl={5} className="gutter-row">
             <div className="lefside-bar">
               <Icon type="deployment-unit" theme="outlined" />

@@ -1,16 +1,14 @@
 import React, { Component } from "react";
-import Home from "./Home";
-import searchApi from "./components/Api";
+import Home from "./components/home";
+import searchApi from "./components/utils/Api";
 import { message } from "antd";
-import "./App.css";
+import "./css/App.css";
 
 class App extends Component {
   state = {
-    response: [],
-    filterdresponse: [],
-    current: 1,
-    paging: 10,
-    isFound: true,
+    allJobs: [],
+    jobFilter: [],
+    currentPage: 1,
     isSearch: ""
   };
   DateSort = (a, b) => {
@@ -18,9 +16,9 @@ class App extends Component {
   };
   componentDidMount() {
     searchApi()
-      .then(res => {
+      .then(searchResults => {
         this.setState({
-          response: res
+          allJobs: searchResults
         });
       })
       .catch(err => console.log(err));
@@ -28,28 +26,21 @@ class App extends Component {
   onPageChange = page => {
     console.log(page);
     this.setState({
-      current: page
+      currentPage: page
     });
   };
   onSearch = val => {
     if (val) {
-      let filterdresponse = this.state.response;
-      filterdresponse = filterdresponse.filter(data => {
+      let jobFilter = this.state.allJobs;
+      jobFilter = jobFilter.filter(data => {
         const { title } = data;
         return title.toLowerCase().search(val.toLowerCase()) >= 0;
       });
-      if (filterdresponse.length) {
-        this.setState({
-          filterdresponse,
-          isFound: true,
-          isSearch: val,
-          current: 1
-        });
-      } else {
-        this.setState({
-          isFound: false
-        });
-      }
+      this.setState({
+        jobFilter,
+        isSearch: val,
+        currentPage: 1
+      });
     } else {
       message.info("Plese enter keywords");
       this.setState({
@@ -59,28 +50,26 @@ class App extends Component {
   };
   onSort = sortby => {
     if (sortby === "date") {
-      let filterdresponse = this.state.filterdresponse.length
-        ? this.state.filterdresponse
-        : [...this.state.response];
-      filterdresponse = filterdresponse.filter(data => {
+      let jobFilter = this.state.jobFilter.length
+        ? this.state.jobFilter
+        : [...this.state.allJobs];
+      jobFilter = jobFilter.filter(data => {
         const { created_at } = data;
         return created_at;
-      }, filterdresponse.sort(this.DateSort));
+      }, jobFilter.sort(this.DateSort));
       this.setState({
-        filterdresponse
+        jobFilter
       });
     } else {
       let searchSort = this.state.isSearch
-        ? this.state.filterdresponse
-        : [...this.state.response];
+        ? this.state.jobFilter
+        : [...this.state.allJobs];
       searchSort = searchSort.filter(data => {
         return data;
       }, searchSort.reverse());
 
       this.setState({
-        filterdresponse: this.state.isSearch
-          ? searchSort
-          : [...this.state.response]
+        jobFilter: this.state.isSearch ? searchSort : [...this.state.allJobs]
       });
     }
   };
