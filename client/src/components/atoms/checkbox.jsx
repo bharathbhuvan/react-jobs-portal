@@ -3,16 +3,17 @@ import { Checkbox, Row, Col } from "antd";
 
 const CheckBox = props => {
   function onChange(checkedValues) {
-    console.log("checked = ", checkedValues);
+    console.log(checkedValues);
+    props.onCheck(checkedValues);
   }
 
   return (
     <Checkbox.Group style={{ width: "100%" }} onChange={onChange}>
       <Row>
         <Col span={8}>
-          <Checkbox value="parttime">Part-time</Checkbox>
+          <Checkbox value="part time">Part-time</Checkbox>
           <br />
-          <Checkbox value="fulltime">full-time</Checkbox>
+          <Checkbox value="full time">Full-time</Checkbox>
           <br />
         </Col>
       </Row>

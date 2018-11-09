@@ -2,7 +2,7 @@ import { Tag, Input, Tooltip, Icon } from "antd";
 import React from "react";
 class EditableTagGroup extends React.Component {
   state = {
-    tags: ["Unremovable", "Tag 2", "Tag 3"],
+    tags: ["devops", "python", "php"],
     inputVisible: false,
     inputValue: ""
   };
@@ -45,11 +45,7 @@ class EditableTagGroup extends React.Component {
         {tags.map((tag, index) => {
           const isLongTag = tag.length > 20;
           const tagElem = (
-            <Tag
-              key={tag}
-              closable={index !== 0}
-              afterClose={() => this.handleClose(tag)}
-            >
+            <Tag key={tag} closable afterClose={() => this.handleClose(tag)}>
               {isLongTag ? `${tag.slice(0, 20)}...` : tag}
             </Tag>
           );
