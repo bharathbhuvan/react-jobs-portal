@@ -5,7 +5,8 @@ import { message } from "antd";
 import "./css/App.css";
 const allFilters = {
   title: [],
-  type: []
+  type: [],
+  keywords: []
 };
 class App extends Component {
   state = {
@@ -46,10 +47,11 @@ class App extends Component {
       };
     });
   };
+
   onMutiFilter = () => {
     let totalJobs = [...this.state.allJobs];
     let filteredJobs = [];
-    // filters all passing elements
+
     const filterKeys = Object.keys(allFilters);
     filteredJobs = totalJobs.filter((eachObj, index) => {
       return filterKeys.every(eachKey => {
@@ -60,10 +62,22 @@ class App extends Component {
           allFilters[eachKey].join("").replace(/,/gi, "|"),
           "gi"
         );
-        return searchExp.test(eachObj[eachKey].toLowerCase());
+        return searchExp.test(
+          typeof eachObj[eachKey] !== "undefined"
+            ? eachObj[eachKey].toLowerCase()
+            : ""
+        );
       });
     });
     this.stateUpdate(filteredJobs);
+  };
+  handleTag = tags => {
+    allFilters.keywords = [];
+    console.log("arr", tags);
+    tags = tags.join();
+    allFilters.keywords.push(tags);
+
+    this.onMutiFilter();
   };
   onSearch = val => {
     if (val.trim()) {
@@ -122,6 +136,7 @@ class App extends Component {
         onPageChange={this.onPageChange}
         onSort={this.onSort}
         onCheck={this.onCheck}
+        handleTag={this.handleTag}
       />
     );
   }

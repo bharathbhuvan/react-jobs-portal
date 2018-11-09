@@ -23,7 +23,7 @@ const RightSideBar = props => {
           <strong>Filter</strong>
         </span>
         <span style={{ float: "right", paddingRight: 10 }}>Clear Filter</span>
-        <EditableTagGroup />
+        <EditableTagGroup handleTag={props.handleTag} />
       </div>
       <div style={{ margin: `30px 0` }}>
         <span>
