@@ -14,7 +14,13 @@ const Home = props => {
       <Search onSearch={props.onSearch} />
       <Layout className="container" id="jobContainer">
         <Row type="flex" justify="center">
-          <LeftSideBar onCheck={props.onCheck} handleTag={props.handleTag} />
+          <LeftSideBar
+            onCheck={props.onCheck}
+            handleTag={props.handleTag}
+            jobTypeFilter={props.jobTypeFilter}
+            onCountrySearch={props.onCountrySearch}
+            clearAll={props.clearAll}
+          />
           <SearchResults {...props} />
           <RightSideBar />
         </Row>

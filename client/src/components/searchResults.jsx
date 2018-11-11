@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col, Tag, Pagination } from "antd";
 import Nomatch from "./nomatch";
 import htmlToReact from "html-to-react";
-import Dropdown from "./atoms/dropdown";
+import SortResults from "./atoms/sortResults";
 
 const SearchResults = props => {
   const htmlToReactParser = new htmlToReact.Parser();
@@ -51,7 +51,7 @@ const SearchResults = props => {
           <strong>{`RESULTS (${totalList})`}</strong>
         </Col>
         <Col>
-          <Dropdown onSort={props.onSort} />
+          <SortResults onSort={props.onSort} />
         </Col>
       </Row>
       {currentList.map((data, index) => (

@@ -9,8 +9,7 @@ class EditableTagGroup extends React.Component {
 
   handleClose = removedTag => {
     const tags = this.state.tags.filter(tag => tag !== removedTag);
-    console.log(tags);
-    this.setState({ tags }, this.props.handleTag(this.state.tags));
+    this.setState({ tags }, this.props.handleTag(tags));
   };
 
   showInput = () => {
@@ -78,7 +77,7 @@ class EditableTagGroup extends React.Component {
             onClick={this.showInput}
             style={{ background: "#fff", borderStyle: "dashed" }}
           >
-            <Icon type="plus" /> New Tag
+            <Icon type="plus" /> Add Skills (php,devops)
           </Tag>
         )}
       </div>

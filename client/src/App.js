@@ -6,7 +6,9 @@ import "./css/App.css";
 const allFilters = {
   title: [],
   type: [],
-  keywords: []
+  keywords: [],
+  jobtype: [],
+  location: []
 };
 class App extends Component {
   state = {
@@ -96,8 +98,18 @@ class App extends Component {
       });
     }
   };
+  onCountrySearch = value => {
+    if (value.trim()) {
+      allFilters.location[0] = value.trim().toLowerCase();
+      this.onMutiFilter();
+    }
+  };
   onCheck = checkvalues => {
-    allFilters.type[0] = checkvalues.join();
+    allFilters.type[0] = checkvalues;
+    this.onMutiFilter();
+  };
+  onfilterJobType = value => {
+    allFilters.jobtype[0] = value.toLowerCase();
     this.onMutiFilter();
   };
   onSort = sortby => {
@@ -127,16 +139,27 @@ class App extends Component {
       });
     }
   };
-
+  clearAll = () => {
+    for (let key in allFilters) {
+      allFilters[key] = [""];
+    }
+    this.setState({
+      jobFilter: [],
+      filter: false
+    });
+  };
   render() {
     return (
       <Home
         {...this.state}
+        jobTypeFilter={this.onfilterJobType}
         onSearch={this.onSearch}
         onPageChange={this.onPageChange}
         onSort={this.onSort}
         onCheck={this.onCheck}
         handleTag={this.handleTag}
+        onCountrySearch={this.onCountrySearch}
+        clearAll={this.clearAll}
       />
     );
   }

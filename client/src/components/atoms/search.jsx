@@ -5,6 +5,7 @@ const Search = props => {
   const handleSearch = val => {
     props.onSearch(val);
   };
+
   const Search = Input.Search;
   return (
     <Row
