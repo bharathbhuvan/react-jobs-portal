@@ -22,6 +22,9 @@ class LeftSideBar extends Component {
 
   handleClear = () => {
     this.props.form.resetFields();
+    this.props.form.setFieldsValue({
+      slider: [null, null]
+    });
     this.props.clearAll();
   };
 
@@ -43,7 +46,10 @@ class LeftSideBar extends Component {
             <span>
               <strong>FILTERS</strong>
             </span>
-            <span style={{ float: "right" }} onClick={this.handleClear}>
+            <span
+              style={{ float: "right", cursor: "pointer" }}
+              onClick={this.handleClear}
+            >
               Clear all filters
             </span>
           </div>
@@ -53,7 +59,7 @@ class LeftSideBar extends Component {
               <strong>Skills</strong>
             </span>
             <span
-              style={{ float: "right" }}
+              style={{ float: "right", cursor: "pointer" }}
               onClick={() => {
                 this.props.form.resetFields(
                   "skills",
@@ -82,7 +88,7 @@ class LeftSideBar extends Component {
               </Tooltip>
             </span>
             <span
-              style={{ float: "right" }}
+              style={{ float: "right", cursor: "pointer" }}
               onClick={() => {
                 this.props.form.resetFields(
                   "availability",
@@ -111,7 +117,7 @@ class LeftSideBar extends Component {
               </Tooltip>
             </span>
             <span
-              style={{ float: "right" }}
+              style={{ float: "right", cursor: "pointer" }}
               onClick={() => {
                 this.props.form.resetFields(
                   "jobtype",
@@ -134,7 +140,7 @@ class LeftSideBar extends Component {
                 <strong>Countries</strong>
               </span>
               <span
-                style={{ float: "right" }}
+                style={{ float: "right", cursor: "pointer" }}
                 onClick={() => {
                   this.props.form.resetFields(
                     "countries",

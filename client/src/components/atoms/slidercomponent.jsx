@@ -21,25 +21,29 @@ export default class IntegerStep extends Component {
     });
     this.setState(
       {
-        inpuValueOne: value[0],
+        inpuValueOne: 0,
         inpuValueTwo: value[1]
       },
       this.handleSlide(value)
     );
   };
   clearVal = () => {
-    console.log("test");
-
     this.props.getdec.setFieldsValue(
       {
         minVal: null,
         maxVal: null
       },
-      this.setState({
-        inpuValueOne: null,
-        inpuValueTwo: null
-      })
+      this.setState(
+        {
+          inpuValueOne: null,
+          inpuValueTwo: null
+        },
+        this.props.applyFilter({ maxsalperhr: [] })
+      )
     );
+    this.props.getdec.setFieldsValue({
+      slider: [null, null]
+    });
   };
   onInputOneChange = value => {
     if (value) {
@@ -75,11 +79,14 @@ export default class IntegerStep extends Component {
 
     return (
       <div className="container">
-        <div>
+        <div style={{ margin: `10px 0` }}>
           <span>
             <strong>Pay rate/hr ($)</strong>
           </span>
-          <span style={{ float: "right" }} onClick={this.clearVal}>
+          <span
+            style={{ float: "right", cursor: "pointer" }}
+            onClick={this.clearVal}
+          >
             Clear
           </span>
         </div>

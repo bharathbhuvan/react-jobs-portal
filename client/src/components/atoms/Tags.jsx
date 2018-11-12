@@ -3,7 +3,15 @@ import { Select } from "antd";
 
 const Option = Select.Option;
 
-const optionval = ["php", "devops"];
+const optionval = [
+  "php",
+  "devops",
+  "FPGA",
+  ".Net",
+  "Webdev",
+  "Scala",
+  "Full Stack"
+];
 const children = [];
 for (let i = 0; i < optionval.length; i++) {
   children.push(<Option key={optionval[i]}>{optionval[i]}</Option>);

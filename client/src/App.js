@@ -56,7 +56,7 @@ class App extends Component {
     let totalJobs = [...this.state.allJobs];
     let filteredJobs = [];
     allFilters = Object.assign({}, allFilters, objKeys);
-    console.log(allFilters);
+
     const filterKeys = Object.keys(allFilters);
     filteredJobs = totalJobs.filter((eachObj, index) => {
       return filterKeys.every(eachKey => {
