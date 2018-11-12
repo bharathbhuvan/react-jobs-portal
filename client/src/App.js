@@ -3,12 +3,13 @@ import Home from "./components/home";
 import searchApi from "./components/utils/Api";
 import { message } from "antd";
 import "./css/App.css";
-const allFilters = {
+let allFilters = {
   title: [],
   type: [],
   keywords: [],
   jobtype: [],
-  location: []
+  location: [],
+  maxsalperhr: []
 };
 class App extends Component {
   state = {
@@ -45,18 +46,26 @@ class App extends Component {
     this.setState((prevstate, props) => {
       return {
         jobFilter,
-        filter: true
+        filter: true,
+        currentPage: 1
       };
     });
   };
 
-  onMutiFilter = () => {
+  onMutiFilter = objKeys => {
     let totalJobs = [...this.state.allJobs];
     let filteredJobs = [];
-
+    allFilters = Object.assign({}, allFilters, objKeys);
+    console.log(allFilters);
     const filterKeys = Object.keys(allFilters);
     filteredJobs = totalJobs.filter((eachObj, index) => {
       return filterKeys.every(eachKey => {
+        if (eachKey === "maxsalperhr" && allFilters.maxsalperhr.length > 0) {
+          return (
+            eachObj[eachKey] >= allFilters.maxsalperhr[0] &&
+            eachObj[eachKey] <= allFilters.maxsalperhr[1]
+          );
+        }
         if (!allFilters[eachKey].length) {
           return true; // empty filter is ignored.
         }
@@ -64,22 +73,15 @@ class App extends Component {
           allFilters[eachKey].join("").replace(/,/gi, "|"),
           "gi"
         );
-        return searchExp.test(
-          typeof eachObj[eachKey] !== "undefined"
-            ? eachObj[eachKey].toLowerCase()
-            : ""
-        );
+        if (typeof eachObj[eachKey] !== "undefined") {
+          return searchExp.test(
+            eachObj[eachKey].length > 0 ? eachObj[eachKey].toLowerCase() : ""
+          );
+        }
+        return null;
       });
     });
     this.stateUpdate(filteredJobs);
-  };
-  handleTag = tags => {
-    allFilters.keywords = [];
-    console.log("arr", tags);
-    tags = tags.join();
-    allFilters.keywords.push(tags);
-
-    this.onMutiFilter();
   };
   onSearch = val => {
     if (val.trim()) {
@@ -98,20 +100,7 @@ class App extends Component {
       });
     }
   };
-  onCountrySearch = value => {
-    if (value.trim()) {
-      allFilters.location[0] = value.trim().toLowerCase();
-      this.onMutiFilter();
-    }
-  };
-  onCheck = checkvalues => {
-    allFilters.type[0] = checkvalues;
-    this.onMutiFilter();
-  };
-  onfilterJobType = value => {
-    allFilters.jobtype[0] = value.toLowerCase();
-    this.onMutiFilter();
-  };
+
   onSort = sortby => {
     if (sortby === "date") {
       let jobFilter = this.state.filter
@@ -140,8 +129,9 @@ class App extends Component {
     }
   };
   clearAll = () => {
+    document.getElementById("searchJobs").value = "";
     for (let key in allFilters) {
-      allFilters[key] = [""];
+      allFilters[key] = [];
     }
     this.setState({
       jobFilter: [],
@@ -152,14 +142,11 @@ class App extends Component {
     return (
       <Home
         {...this.state}
-        jobTypeFilter={this.onfilterJobType}
         onSearch={this.onSearch}
         onPageChange={this.onPageChange}
         onSort={this.onSort}
-        onCheck={this.onCheck}
-        handleTag={this.handleTag}
-        onCountrySearch={this.onCountrySearch}
         clearAll={this.clearAll}
+        applyFilter={this.onMutiFilter}
       />
     );
   }

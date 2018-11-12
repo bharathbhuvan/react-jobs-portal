@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Tag, Pagination } from "antd";
+import { Row, Col, Tag, Pagination, Icon, Divider } from "antd";
 import Nomatch from "./nomatch";
 import htmlToReact from "html-to-react";
 import SortResults from "./atoms/sortResults";
@@ -68,9 +68,14 @@ const SearchResults = props => {
               <Tag color={data.label}>
                 <span>{data.type}</span>
               </Tag>
-
+              <span>{data.maxsalperhr && `$${data.maxsalperhr}`}</span>
               <p>
-                <span>{data.company} </span> <span>{data.location}</span>
+                <span>{data.company} </span>
+                <Icon
+                  type="environment"
+                  style={{ color: "#52c41a", paddingLeft: "10px" }}
+                />
+                <span style={{ paddingLeft: "5px" }}>{data.location}</span>
               </p>
 
               {htmlToReactParser.parse(
@@ -85,7 +90,15 @@ const SearchResults = props => {
                   ))}
             </Col>
           </Row>
-          {currentList.length - 1 !== index && <hr />}
+          {currentList.length - 1 !== index && (
+            <Divider
+              style={{
+                padding: `0px 20px`,
+                width: `88%`,
+                margin: `10px auto `
+              }}
+            />
+          )}
         </div>
       ))}
       {currentList.length > 0 && (

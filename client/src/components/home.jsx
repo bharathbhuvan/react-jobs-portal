@@ -20,6 +20,8 @@ const Home = props => {
             jobTypeFilter={props.jobTypeFilter}
             onCountrySearch={props.onCountrySearch}
             clearAll={props.clearAll}
+            handleSlide={props.handleSlide}
+            applyFilter={props.applyFilter}
           />
           <SearchResults {...props} />
           <RightSideBar />

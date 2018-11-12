@@ -1,84 +1,52 @@
-import { Tag, Input, Tooltip, Icon } from "antd";
-import React from "react";
-class EditableTagGroup extends React.Component {
+import React, { Component } from "react";
+import { Select } from "antd";
+
+const Option = Select.Option;
+
+const optionval = ["php", "devops"];
+const children = [];
+for (let i = 0; i < optionval.length; i++) {
+  children.push(<Option key={optionval[i]}>{optionval[i]}</Option>);
+}
+
+class EditableTagGroup extends Component {
   state = {
-    tags: [],
-    inputVisible: false,
-    inputValue: ""
+    size: "default"
   };
-
-  handleClose = removedTag => {
-    const tags = this.state.tags.filter(tag => tag !== removedTag);
-    this.setState({ tags }, this.props.handleTag(tags));
-  };
-
-  showInput = () => {
-    this.setState({ inputVisible: true }, () => this.input.focus());
-  };
-
-  handleInputChange = e => {
-    this.setState({
-      inputValue: e.target.value
-    });
-  };
-
-  handleInputConfirm = () => {
-    const state = this.state;
-    const inputValue = state.inputValue;
-    let tags = state.tags;
-    if (inputValue && tags.indexOf(inputValue) === -1) {
-      tags = [...tags, inputValue];
+  // handleChange = value => {
+  //   this.props.handleTag(value);
+  //   let keywords = { keywords: [] };
+  //   keywords.keywords.push(value);
+  //   console.log(keywords);
+  // };
+  handleChange = (tags = []) => {
+    let keywords = { keywords: [] };
+    if (tags.length) {
+      tags = tags.join();
+      keywords.keywords.push(tags);
     }
-    this.setState(
-      {
-        tags,
-        inputVisible: false,
-        inputValue: ""
-      },
-      this.props.handleTag(tags)
-    );
-  };
 
-  saveInputRef = input => (this.input = input);
+    this.props.applyFilter(keywords);
+  };
+  handleSizeChange = e => {
+    this.setState({ size: e.target.value });
+  };
 
   render() {
-    const { tags, inputVisible, inputValue } = this.state;
+    const { size } = this.state;
     return (
-      <div className="TagGroup">
-        {tags.map((tag, index) => {
-          const isLongTag = tag.length > 20;
-          const tagElem = (
-            <Tag key={tag} closable afterClose={() => this.handleClose(tag)}>
-              {isLongTag ? `${tag.slice(0, 20)}...` : tag}
-            </Tag>
-          );
-          return isLongTag ? (
-            <Tooltip title={tag} key={tag}>
-              {tagElem}
-            </Tooltip>
-          ) : (
-            tagElem
-          );
-        })}
-        {inputVisible && (
-          <Input
-            ref={this.saveInputRef}
-            type="text"
-            size="small"
-            style={{ width: 78 }}
-            value={inputValue}
-            onChange={this.handleInputChange}
-            onBlur={this.handleInputConfirm}
-            onPressEnter={this.handleInputConfirm}
-          />
-        )}
-        {!inputVisible && (
-          <Tag
-            onClick={this.showInput}
-            style={{ background: "#fff", borderStyle: "dashed" }}
+      <div>
+        {this.props.getdec.getFieldDecorator("skills")(
+          <Select
+            mode="tags"
+            size={size}
+            placeholder="Please select skills"
+            initialValue={[]}
+            onChange={this.handleChange}
+            style={{ width: "100%" }}
           >
-            <Icon type="plus" /> Add Skills (php,devops)
-          </Tag>
+            {children}
+          </Select>
         )}
       </div>
     );

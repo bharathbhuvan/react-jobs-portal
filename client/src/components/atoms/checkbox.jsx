@@ -8,14 +8,17 @@ class CheckBox extends Component {
       checked: false
     };
   }
-  onChange = checkedValues => {
-    this.props.onCheck(checkedValues);
+  onChange = checkvalues => {
+    let type = { type: [checkvalues] };
+    this.props.applyFilter(type);
   };
   render() {
     return this.props.getdec.getFieldDecorator("availability")(
       <Checkbox.Group style={{ width: "100%" }} onChange={this.onChange}>
         <Row>
           <Col>
+            <Checkbox value="hourly">Hourly</Checkbox>
+            <br />
             <Checkbox value="part time">Part-time</Checkbox>
             <br />
             <Checkbox value="full time">Full-time</Checkbox>

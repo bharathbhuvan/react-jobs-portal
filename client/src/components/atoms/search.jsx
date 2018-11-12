@@ -7,6 +7,7 @@ const Search = props => {
   };
 
   const Search = Input.Search;
+
   return (
     <Row
       type="flex"
@@ -15,12 +16,13 @@ const Search = props => {
       className="Home_search"
       gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
     >
-      <Col span={22}>
+      <Col span={22} style={{ paddingRight: `0px`, paddingLeft: `0px` }}>
         <Search
           placeholder="Search by keywords (PHP,Devops,Cloud)"
           enterButton="Search"
           size="large"
           required={true}
+          id="searchJobs"
           onSearch={value => handleSearch(value)}
         />
       </Col>
